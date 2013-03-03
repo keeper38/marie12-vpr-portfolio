@@ -20,15 +20,11 @@
 package obligatorisk1;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,8 +39,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 
 public class WindowFrame extends JFrame {
-	private static final long serialVersionUID = 1L;
+	// Computed by Eclipse
+	private static final long serialVersionUID = -8917222429298875280L;
 	
+	/**
+	 * 
+	 */
 	private JPanel mainContentPane;
 	private JTextField opg1a_inputField;
 	private JTextField opg1a_outputField;
@@ -95,7 +95,7 @@ public class WindowFrame extends JFrame {
 	private void opg1_initComponents() {
 		// Copied this method from the exam and made a few changes
 		
-		// Made this an inner class for to contain it a little
+		// Made this an inner class to contain it a little
 		class ButtonListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == opg1a_clear) {
