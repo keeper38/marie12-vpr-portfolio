@@ -12,9 +12,11 @@
  * Some fields and variables from ported projects has been renamed to them more
  * distinguishable from each other and avoid confusion.
  * 
+ * I plan to move the components out into their own files in the future.
+ * 
  * Possible current problems:
  * 		Naming - I have attempted to name everything properly, but there may still be some bad names
- * 		Almost everything under one file - I would have liked to separate it a little, but I'm new to WindowBuilder  
+ * 		Almost everything under one file - I would have liked to separate it a little, but I'm new to WindowBuilder
  */
 
 package obligatorisk1;
@@ -42,9 +44,6 @@ public class WindowFrame extends JFrame {
 	// Computed by Eclipse
 	private static final long serialVersionUID = -8917222429298875280L;
 	
-	/**
-	 * 
-	 */
 	private JPanel mainContentPane;
 	private JTextField opg1a_inputField;
 	private JTextField opg1a_outputField;
@@ -54,7 +53,7 @@ public class WindowFrame extends JFrame {
 	private JTabbedPane mainTabbedPane;
 	private JPanel misc_border2_panel;
 	private JScrollPane misc_border2_scrollPane;
-	private JTextArea textArea;
+	private JTextArea misc_border2_textArea;
 	private JButton misc_border2_btnNorth;
 	private JButton misc_border2_btnSouth;
 	private JButton misc_border2_btnWest;
@@ -72,10 +71,10 @@ public class WindowFrame extends JFrame {
 	private JButton misc_stringsplit_btnClear;
 	private NewJPanel opg1b_NewJPanel;
 	private JScrollPane opg1b_scrollPane;
-	private JTextArea textArea_1;
+	private JTextArea opg1b_textArea;
 	private JButton opg1b_btnOpenFile;
 	private JLabel opg1b_lblStatus;
-
+ 
 	/**
 	 * Launch the application.
 	 */
@@ -142,8 +141,8 @@ public class WindowFrame extends JFrame {
 		opg1b_scrollPane = new JScrollPane();
 		opg1b_NewJPanel.add(opg1b_scrollPane, BorderLayout.CENTER);
 		
-		textArea_1 = new JTextArea();
-		opg1b_scrollPane.setViewportView(textArea_1);
+		opg1b_textArea = new JTextArea();
+		opg1b_scrollPane.setViewportView(opg1b_textArea);
 		
 		opg1b_lblStatus = new JLabel("Status:");
 		opg1b_NewJPanel.add(opg1b_lblStatus, BorderLayout.SOUTH);
@@ -166,10 +165,10 @@ public class WindowFrame extends JFrame {
 		misc_border2_scrollPane = new JScrollPane();
 		misc_border2_panel.add(misc_border2_scrollPane, BorderLayout.CENTER);
 		
-		textArea = new JTextArea();
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		misc_border2_scrollPane.setViewportView(textArea);
+		misc_border2_textArea = new JTextArea();
+		misc_border2_textArea.setWrapStyleWord(true);
+		misc_border2_textArea.setLineWrap(true);
+		misc_border2_scrollPane.setViewportView(misc_border2_textArea);
 		
 		misc_border2_btnNorth = new JButton("North");
 		misc_border2_btnNorth.addActionListener(new BtnNorthActionListener());
@@ -250,22 +249,22 @@ public class WindowFrame extends JFrame {
 
 	private class BtnNorthActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			textArea.append("You clicked: North\n");
+			misc_border2_textArea.append("You clicked: North\n");
 		}
 	}
 	private class BtnSouthActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			textArea.append("You clicked: South\n");
+			misc_border2_textArea.append("You clicked: South\n");
 		}
 	}
 	private class BtnWestActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			textArea.append("You clicked: West\n");
+			misc_border2_textArea.append("You clicked: West\n");
 		}
 	}
 	private class BtnEastActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			textArea.append("You clicked: East\n");
+			misc_border2_textArea.append("You clicked: East\n");
 		}
 	}
 	private class Misc_stringsplit_btnSplitActionListener implements ActionListener {
@@ -288,7 +287,7 @@ public class WindowFrame extends JFrame {
 	}
 	private class BtnNewButtonActionListener implements ActionListener {
 		private boolean isNumeric(String str) {
-			// Check is every character in the string is numeric
+			// Check if every character in the string is numeric
 			boolean numeric = true;
 			for (int i = 0; i < str.length(); i++) {
 				if (!Character.isDefined(str.charAt(i))) {
@@ -332,7 +331,7 @@ public class WindowFrame extends JFrame {
 			try {
 				sc = new Scanner(filechooser.getSelectedFile());
 				// Firstly, clear the text area
-				textArea_1.setText("");
+				opg1b_textArea.setText("");
 				// For every line, check if it is valid and if so, write the data to the text are and add to sum
 				while (sc.hasNextLine()) {
 					String line = sc.nextLine();
@@ -340,7 +339,11 @@ public class WindowFrame extends JFrame {
 					
 					// If the line is valid, append the data and add number to sum
 					if (isValid(lineData)) {
-						textArea_1.append(lineData[0] + "\t" + lineData[1] + "\n");
+						opg1b_textArea.append(lineData[0] + "\t" + lineData[1]);
+						// Only add new line if there are more lines in the document
+						if (sc.hasNextLine()) {
+							opg1b_textArea.append("\n");
+						}
 						sum = sum + Integer.decode(lineData[1]);
 					}
 					else {
