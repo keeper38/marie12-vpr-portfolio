@@ -30,7 +30,6 @@ public class Opg1b extends NewJPanel {
 					numeric = false;
 				}
 			}
-			
 			return (numeric);
 		}
 		
@@ -61,9 +60,9 @@ public class Opg1b extends NewJPanel {
 			// Limit one to only open text files
 			filechooser.setFileFilter(fnef);
 			// Show the dialog
-			int chooserResult = filechooser.showOpenDialog(null);
+			int chooserErrorCode = filechooser.showOpenDialog(null);
 			Scanner sc;
-			if (chooserResult == 0) {
+			if (chooserErrorCode == 0) {
 				try {
 					sc = new Scanner(filechooser.getSelectedFile());
 					// Firstly, clear the text area
@@ -84,7 +83,7 @@ public class Opg1b extends NewJPanel {
 						}
 						else {
 							// TODO: Handle invalid lines
-							// For now, just ignore it
+							// For now, just ignore them
 						}
 					}
 					// When done, close the scanner and show the result
@@ -94,10 +93,8 @@ public class Opg1b extends NewJPanel {
 				catch (Exception ex) {/* TODO: Handle errors */}
 			}
 			else {
-				// Error
 				// User pressed Cancel or something
 			}
-			
 		}
 	}
 	

@@ -15,6 +15,7 @@
  * 
  * Possible current problems:
  * 		Naming - I have attempted to name everything properly, but there may still be some bad names
+ * 		Irregular use of ActionListeners - Inner classes, one or more buttons? I plan to normalize this
  */
 
 package portfolio;

@@ -18,7 +18,6 @@ public class Opg1a extends JPanel {
 	private JButton btnLower;
 	
 	public Opg1a() {
-		// Made this an inner class to contain it a little
 				class ButtonListener implements ActionListener {
 					public void actionPerformed(ActionEvent e) {
 						if (e.getSource() == btnClear) {
@@ -32,7 +31,6 @@ public class Opg1a extends JPanel {
 							txtOutput.setText(txtInput.getText().toLowerCase());
 						}
 					}
-					
 				}
 		
 		txtInput = new JTextField();
@@ -47,10 +45,6 @@ public class Opg1a extends JPanel {
 		// ActionListener for the buttons
 		ButtonListener bl = new ButtonListener();
 		
-		btnClear = new JButton("Clear");
-		btnClear.addActionListener(bl);
-		add(btnClear);
-		
 		btnUpper = new JButton("Upper Case");
 		btnUpper.addActionListener(bl);
 		add(btnUpper);
@@ -58,5 +52,9 @@ public class Opg1a extends JPanel {
 		btnLower = new JButton("Lower Case");
 		btnLower.addActionListener(bl);
 		add(btnLower);
+		
+		btnClear = new JButton("Clear");
+		btnClear.addActionListener(bl);
+		add(btnClear);
 	}
 }
