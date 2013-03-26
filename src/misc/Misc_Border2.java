@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Misc_Border2 extends JPanel {
-	// Computed by Eclipse
+	// Computed by Eclipse 
 	private static final long serialVersionUID = -1339452772867563669L;
 	
 	JTextArea txtOutput;
@@ -41,7 +41,7 @@ public class Misc_Border2 extends JPanel {
 	}
 
 	private class BtnNorthActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			txtOutput.append("You clicked: North\n");
 		}
 	}

@@ -19,5 +19,8 @@ public class MiscPane extends JPanel {
 		
 		Misc_StringSplit stringsplit = new Misc_StringSplit();
 		tabbedPane.addTab("String Split", null, stringsplit, null);
+		
+		Misc_Table table1 = new Misc_Table();
+		tabbedPane.addTab("Table", null, table1, null);
 	}
 }
