@@ -19,6 +19,10 @@ public class DanishIsland implements Comparable<DanishIsland> {
 	public String toString() {
 		return (getName() + "\t" + getCircumference()  + "\t" + getArea() + "\t" + getAddresstotal() + "\t" + getAddressdensity() + "\n");
 	}
+	public Object[] toArray() {
+		Object[] returndata = {name, circumference, area, addresstotal, addressdensity};
+		return returndata;
+	}
 	
 	public int compareTo(DanishIsland o) {
 		
