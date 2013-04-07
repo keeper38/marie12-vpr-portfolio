@@ -21,6 +21,7 @@
 package portfolio;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,6 +31,8 @@ import javax.swing.JTabbedPane;
 public class WindowFrame extends JFrame {
 	// Computed by Eclipse
 	private static final long serialVersionUID = -8917222429298875280L;
+	
+	public static WindowFrame accessor;
 	
 	private JPanel mainContentPane;
 	private JTabbedPane mainTabbedPane;
@@ -54,6 +57,9 @@ public class WindowFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public WindowFrame() {
+		// This way, all classes can access the window functions
+		// I know this is probably an unholy violation of all good programming practices
+		WindowFrame.accessor = this;
 		setTitle("Portfolio marie12 - 2013");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -61,6 +67,7 @@ public class WindowFrame extends JFrame {
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mainContentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(mainContentPane);
+		setMinimumSize(new Dimension(450, 300));
 		
 		mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		mainContentPane.add(mainTabbedPane, BorderLayout.CENTER);
@@ -69,6 +76,7 @@ public class WindowFrame extends JFrame {
 		mainTabbedPane.addTab("opg1a", null, new obligatoriske.Opg1a(), null);
 		mainTabbedPane.addTab("opg1b", null, new obligatoriske.Opg1b(), null);
 		mainTabbedPane.addTab("opg2a", null, new obligatoriske.Opg2a(), null);
+		mainTabbedPane.addTab("opg2b", null, new obligatoriske.Opg2b(), null);
 		
 		// Add miscellaneous tabs (All under one tab)
 		mainTabbedPane.addTab("Miscellaneus", null, new misc.MiscPane(), null);

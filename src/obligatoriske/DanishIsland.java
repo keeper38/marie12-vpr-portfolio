@@ -7,7 +7,6 @@ public class DanishIsland implements Comparable<DanishIsland> {
 	private int addresstotal, addressdensity;
 	
 	public DanishIsland(String name, double circ, double area, int addrtotal, int addrdens) {
-		
 		// Initialize data
 		this.setName(name);
 		this.setCircumference(circ);

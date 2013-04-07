@@ -66,6 +66,34 @@ public class IslandComparator implements Comparator<DanishIsland> {
 	public int getComparemode() {
 		return this.mode;
 	}
+	
+	public String getComparemodeName() {
+		String modename;
+		switch (this.mode) {
+		case 0:
+			modename = "name";
+			break;
+		case 1:
+			modename = "circumference";
+			break;
+		case 2:
+			modename = "area";
+			break;
+		case 3:
+			modename = "address total";
+			break;
+		case 4:
+			modename = "address density";
+			break;
+			
+		default:
+			// This could also throw an exception
+			modename = "unknown";
+			break;
+		}
+		
+		return modename;
+	}
 
 	public boolean setComparemode(int comparemode) {
 		// Changes compare mode only if it's a recognised one

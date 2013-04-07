@@ -15,6 +15,7 @@
 package obligatoriske;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,9 +25,12 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import portfolio.WindowFrame;
 
 public class Opg2a extends JPanel {
 	// Computed by Eclipse
@@ -45,6 +49,8 @@ public class Opg2a extends JPanel {
 	private TablePane tpData;
 	// The names of the columns
 	private final String[] COLNAMES = {"Name", "Circumference", "Area", "Address Total", "Address Density"};
+	// To show status messagse
+	private JLabel lbStatus;
 	
 	// ------------------------------ Methods ------------------------------ //
 	
@@ -66,12 +72,36 @@ public class Opg2a extends JPanel {
 		IslandComparator comp = new IslandComparator(compmode);
 		Collections.sort(loadedData, comp);
 		tpData.setData(dataToArray(loadedData));
+		
+		setStatusMessage(("Data sorted by " + comp.getComparemodeName()), false);
+	}
+	
+	private void setStatusMessage(String msg, boolean error) {
+		lbStatus.setText(msg);
+		if (error) lbStatus.setForeground(Color.RED);
+		else lbStatus.setForeground(Color.BLACK);
+	}
+	
+	// On error, this will clean up to avoid exceptions
+	private void reset() {
+		loadedData = null;
+		islandDataArray = null;
+		Object[][] emptyset = {{null, null, null, null, null}};
+		tpData.setData(emptyset);
+		
+		rbSortName.setEnabled(false);
+		rbSortCircumference.setEnabled(false);
+		rbSortArea.setEnabled(false);
+		rbSortAddrTotal.setEnabled(false);
+		rbSortAddrDensity.setEnabled(false);
 	}
 	
 	// Constructor
 	public Opg2a() {
 		class Listener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
+				// Most this code should probably be moved into another class
+				// Might do that some day
 				if(e.getSource() == btnRead) {
 					// Read button
 					
@@ -84,21 +114,23 @@ public class Opg2a extends JPanel {
 					filechooser.setFileFilter(fnef);
 					// Show the dialog
 					int chooserErrorCode = filechooser.showOpenDialog(null);
-
+					
 					Scanner sc;
 					if (chooserErrorCode == 0) {
 						try {
-							// Load the file into a string
+							// Open the file and start loading in data
 							sc = new Scanner(filechooser.getSelectedFile());
-							loadedData = new ArrayList<DanishIsland>();
+							// Check if we actually have anything to load
+							if (!sc.hasNext()) throw new Exception("Could not properly read file");
 							
+							loadedData = new ArrayList<DanishIsland>();
 							String holder[];
 							
 							// This will hold the island data for initialisation
 							String name;
 							double circumference, area;
 							int addresstotal, addressdensity;
-							
+
 							while (sc.hasNextLine()) {
 								holder = sc.nextLine().split(";");
 								if(holder.length == 5) {
@@ -110,6 +142,7 @@ public class Opg2a extends JPanel {
 									addressdensity = Integer.parseInt(holder[4]);
 									loadedData.add(new DanishIsland(name, circumference, area, addresstotal, addressdensity));
 								}
+								else throw new Exception("Incorrectly formatted file");
 							}
 
 							// When done, close the scanner and show the result
@@ -117,12 +150,30 @@ public class Opg2a extends JPanel {
 							
 							// Now we parse the data and save it in memory
 							islandDataArray = dataToArray(loadedData);
+							// We do not want to parse an empty data set to the table
 							if(islandDataArray.length > 1) {
-								// We do not want to parse an empty dataset to the table
 								tpData.setData(islandDataArray);
+								rbSortName.setEnabled(true);
+								rbSortCircumference.setEnabled(true);
+								rbSortArea.setEnabled(true);
+								rbSortAddrTotal.setEnabled(true);
+								rbSortAddrDensity.setEnabled(true);
+								
+								// By default, we will sort by name, when loaded
+								rbSortName.doClick();
+								
+								// Resize so the user can see the columns
+								// TODO: Put in some if()s to only resize whwn needed
+								WindowFrame.accessor.setSize(750, 500);
 							}
+							// This should never happen
+							else throw new Exception("No rows found");
 						}
-						catch (Exception ex) {/* TODO: Handle errors */}
+						catch (Exception ex) {
+							reset();
+							if (ex.getMessage().length() > 0) setStatusMessage(ex.getMessage(), true);
+							else setStatusMessage("Unknown error", true);
+						}
 					}
 					else {
 						// User pressed Cancel or something
@@ -171,6 +222,12 @@ public class Opg2a extends JPanel {
 		rbSortAddrTotal = new JRadioButton("Address Total");
 		rbSortAddrDensity = new JRadioButton("Address Density");
 		
+		rbSortName.setEnabled(false);
+		rbSortCircumference.setEnabled(false);
+		rbSortArea.setEnabled(false);
+		rbSortAddrTotal.setEnabled(false);
+		rbSortAddrDensity.setEnabled(false);
+		
 		rbSortName.addActionListener(al);
 		rbSortCircumference.addActionListener(al);
 		rbSortArea.addActionListener(al);
@@ -193,10 +250,14 @@ public class Opg2a extends JPanel {
 		btnRead.addActionListener(al);
 		buttonPane.add(btnRead);
 		
+		lbStatus = new JLabel();
+		setStatusMessage("Ready", false);
+		
 		Object[][] startdata = {{"", "", "", "", ""}};
 		
 		this.add(buttonPane, BorderLayout.WEST);
 		tpData = new TablePane(COLNAMES, startdata);
 		this.add(tpData, BorderLayout.CENTER);
+		this.add(lbStatus, BorderLayout.SOUTH);
 	}
 }

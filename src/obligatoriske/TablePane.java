@@ -26,14 +26,11 @@ public class TablePane extends JScrollPane {
 				table = new JTable(data, this.columns);
 				tableViewUpdate();
 			}
-			// Incorrect number of columns
-			// Nothing happens
 		}
-		// No rows.
 	}
 	
 	public TablePane(String[] columnnames, Object[][] datainput) {
-		// TODO: Check if there are an equal number of 
+		// TODO: Check if there are an equal number of names and data columns 
 		this.columns = columnnames;
 		this.data = datainput;
 		table = new JTable(data, this.columns);
