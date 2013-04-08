@@ -144,7 +144,7 @@ public class Opg2a extends JPanel {
 								}
 								else throw new Exception("Incorrectly formatted file");
 							}
-
+							
 							// When done, close the scanner and show the result
 							sc.close();
 							
