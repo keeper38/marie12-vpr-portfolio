@@ -22,5 +22,8 @@ public class MiscPane extends JPanel {
 		
 		Misc_Table table1 = new Misc_Table();
 		tabbedPane.addTab("Table", null, table1, null);
+		
+		Misc_Palindrome palindrome = new Misc_Palindrome();
+		tabbedPane.addTab("Palindrome", null, palindrome, null);
 	}
 }

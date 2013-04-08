@@ -121,7 +121,10 @@ public class Opg2a extends JPanel {
 							// Open the file and start loading in data
 							sc = new Scanner(filechooser.getSelectedFile());
 							// Check if we actually have anything to load
-							if (!sc.hasNext()) throw new Exception("Could not properly read file");
+							if (!sc.hasNext()) {
+								sc.close();
+								throw new Exception("Could not properly read file");
+							}
 							
 							loadedData = new ArrayList<DanishIsland>();
 							String holder[];
@@ -142,7 +145,10 @@ public class Opg2a extends JPanel {
 									addressdensity = Integer.parseInt(holder[4]);
 									loadedData.add(new DanishIsland(name, circumference, area, addresstotal, addressdensity));
 								}
-								else throw new Exception("Incorrectly formatted file");
+								else {
+									sc.close();
+									throw new Exception("Incorrectly formatted file");
+								}
 							}
 							
 							// When done, close the scanner and show the result
@@ -163,8 +169,13 @@ public class Opg2a extends JPanel {
 								rbSortName.doClick();
 								
 								// Resize so the user can see the columns
-								// TODO: Put in some if()s to only resize whwn needed
-								WindowFrame.accessor.setSize(750, 500);
+								if (WindowFrame.accessor.getSize().width < 750) {
+									WindowFrame.accessor.setSize(750, (int)WindowFrame.accessor.getSize().getHeight());
+								}
+								
+								if (WindowFrame.accessor.getSize().height < 500) {
+									WindowFrame.accessor.setSize((int)WindowFrame.accessor.getSize().getWidth(), 400);
+								}
 							}
 							// This should never happen
 							else throw new Exception("No rows found");

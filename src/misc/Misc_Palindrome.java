@@ -6,19 +6,23 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Palindrome extends JPanel {
+/*
+ * Testing for palindromes.
+ * TODO: Use only one text field
+ */
+
+public class Misc_Palindrome extends JPanel {
 	// Computed by Eclipse
 	private static final long serialVersionUID = -2672043284090602021L;
 	JTextField txtLeft;
 	JTextField txtRight;
 	JButton btnCompare;
 	
-	public Palindrome() {
+	public Misc_Palindrome() {
 		class CompListener implements ActionListener {
 			
 			private boolean checkPalindrome(ArrayList<Character> left, ArrayList<Character> right) {
