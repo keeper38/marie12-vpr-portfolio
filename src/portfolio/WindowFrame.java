@@ -76,6 +76,7 @@ public class WindowFrame extends JFrame {
 		mainTabbedPane.addTab("opg1a", null, new obligatoriske.Opg1a(), null);
 		mainTabbedPane.addTab("opg1b", null, new obligatoriske.Opg1b(), null);
 		mainTabbedPane.addTab("opg2a", null, new obligatoriske.Opg2a(), null);
+		mainTabbedPane.addTab("opg2b", null, new obligatoriske.obl2b_girls_boys.GirlsAndBoysPanel(), null);
 		
 		// Add miscellaneous tabs (All under one tab)
 		mainTabbedPane.addTab("Miscellaneus", null, new misc.MiscPane(), null);
