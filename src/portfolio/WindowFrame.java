@@ -59,15 +59,17 @@ public class WindowFrame extends JFrame {
 	public WindowFrame() {
 		// This way, all classes can access the window functions
 		// I know this is probably an unholy violation of all good programming practices
+		final int defaultWidth = 500;
+		final int defaultHeight = 300;
 		WindowFrame.accessor = this;
 		setTitle("Portfolio marie12 - 2013");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, defaultWidth, defaultHeight);
 		mainContentPane = new JPanel();
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mainContentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(mainContentPane);
-		setMinimumSize(new Dimension(450, 300));
+		setMinimumSize(new Dimension(defaultWidth, defaultHeight));
 		
 		mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		mainContentPane.add(mainTabbedPane, BorderLayout.CENTER);
@@ -77,6 +79,7 @@ public class WindowFrame extends JFrame {
 		mainTabbedPane.addTab("opg1b", null, new obligatoriske.Opg1b(), null);
 		mainTabbedPane.addTab("opg2a", null, new obligatoriske.Opg2a(), null);
 		mainTabbedPane.addTab("opg2b", null, new obligatoriske.obl2b_girls_boys.GirlsAndBoysPanel(), null);
+		mainTabbedPane.addTab("opg3a", null, new obligatoriske.Opg3a(), null);
 		
 		// Add miscellaneous tabs (All under one tab)
 		mainTabbedPane.addTab("Miscellaneus", null, new misc.MiscPane(), null);
